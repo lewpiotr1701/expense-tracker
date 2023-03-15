@@ -25,7 +25,7 @@ function addTransactionToDOM(transaction) {
   const item = document.createElement('li')
 
   // Add class based on value
-  item.classList.add(transaction.amount < 0 ? '-' : '+')
+  item.classList.add(transaction.amount < 0 ? 'minus' : 'plus')
 
   item.innerHTML = `
     ${transaction.description}<span>${sign}${Math.abs(transaction.amount)}</span>
