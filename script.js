@@ -61,11 +61,18 @@ function addTransactionToDOM(transaction) {
 
   item.innerHTML = `
     ${transaction.description}<span>${sign}${Math.abs(transaction.amount)}</span>
-    <button class="delete-btn">x</button>
+    <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
   `
 
   // Append new created item to list
   list.appendChild(item)
+}
+
+// Remove transaction by ID
+function removeTransaction(id) {
+  transactions = transactions.filter(transaction => transaction.id !== id)
+
+  init()
 }
 
 // Update the balance, income and expense
