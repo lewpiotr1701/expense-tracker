@@ -17,7 +17,39 @@ const dummyTransactions = [
 
 let transactions = dummyTransactions
 
-// Add transactions to DOM List
+// Event listeners
+form.addEventListener('submit', addTransaction)
+
+// Add transaction
+function addTransaction(e) {
+  e.preventDefault();
+
+  if (description.value.trim() === '' || amount.value.trim() === '') {
+    alert('Please enter a description and amount')
+  } else {
+    const transaction = {
+      id: generateID(),
+      description: description.value,
+      amount: +amount.value
+    }
+
+    transactions.push(transaction)
+
+    addTransactionToDOM(transaction)
+
+    updateValues()
+
+    description.value = ''
+    amount.value = ''
+  }
+}
+
+// Generate random ID
+function generateID() {
+  return Math.floor(Math.random() * 1000000)
+}
+
+// Add transactions to DOM list
 function addTransactionToDOM(transaction) {
   // Get sign of transaction
   const sign = transaction.amount < 0 ? '-' : '+'
