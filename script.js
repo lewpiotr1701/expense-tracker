@@ -1,24 +1,27 @@
 const balance = document.querySelector('#balance')
 const income = document.querySelector('#income')
 const expense = document.querySelector('#expense')
-
 const list = document.querySelector('#list')
-
 const form = document.querySelector('form')
 const description = document.querySelector('#description')
 const amount = document.querySelector('#amount')
 
-const dummyTransactions = [
-  { id: 1, description: 'Flower', amount: -20 },
-  { id: 2, description: 'Salary', amount: 300 },
-  { id: 3, description: 'Book', amount: -10 },
-  { id: 4, description: 'Camera', amount: 150 }
-]
+// const dummyTransactions = [
+//   { id: 1, description: 'Flower', amount: -20 },
+//   { id: 2, description: 'Salary', amount: 300 },
+//   { id: 3, description: 'Book', amount: -10 },
+//   { id: 4, description: 'Camera', amount: 150 }
+// ]
 
-let transactions = dummyTransactions
+// Get transactions from local storage
+const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'))
+
+let transactions = localStorageTransactions !== null ? localStorageTransactions : []
+
 
 // Event listeners
 form.addEventListener('submit', addTransaction)
+
 
 // Add transaction
 function addTransaction(e) {
@@ -38,6 +41,8 @@ function addTransaction(e) {
     addTransactionToDOM(transaction)
 
     updateValues()
+
+    updateLocalStorage()
 
     description.value = ''
     amount.value = ''
@@ -72,7 +77,14 @@ function addTransactionToDOM(transaction) {
 function removeTransaction(id) {
   transactions = transactions.filter(transaction => transaction.id !== id)
 
+  updateLocalStorage()
+
   init()
+}
+
+// Update local storage transactions
+function updateLocalStorage() {
+  localStorage.setItem('transactions', JSON.stringify(transactions))
 }
 
 // Update the balance, income and expense
