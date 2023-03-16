@@ -1,6 +1,6 @@
 # Expense Tracker
 
-Simple app that keeps trac of income and expenses.
+Simple app that keeps track of income and expenses.
 
 ## Project Specifications
 
